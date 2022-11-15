@@ -18,11 +18,20 @@ db.init_app(app)
 """
 migrate = Migrate(app,db,render_as_batch=True)
 
+import routes.todo_routes as todo_routes
+
+from container.injector import Injecto
+app.register_blueprint(todo_routes.blueprint, url_prefix="/todos")
+
 api.add_resource(TodoList, "/todos")
 
 with app.app_context():
     db.create_all()
 
 if __name__ == "__main__":
+    di = Injecto()
+    di.wire(modules=[
+        todo_routes
+    ])
     app.run(debug=True)
 
