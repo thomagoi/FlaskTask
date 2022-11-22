@@ -6,4 +6,4 @@ class Tag(db.Model):
     todos = db.relationship('Todo', backref='given_tag', lazy=True)
 
     def __repr__(self):
-        return f"Tag: {self.name}"
+        return f"#{self.id} Tag: {self.name}"

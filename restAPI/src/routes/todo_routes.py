@@ -1,6 +1,7 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint,request, jsonify
 from dependency_injector.wiring import inject, Provide
-
+from models.todo import Todo 
+from models.database import db   
 from container.injector import Injecto
 
 blueprint = Blueprint("todo_routes",__name__)
@@ -12,4 +13,17 @@ def get_todos(todo_service= Provide[Injecto.todo_service]):
     todos = todo_service.get_todos()
 
     return todos, 200 
+
+@blueprint.route('/post',methods=['POST'])
+@inject
+def post_todo(todo_service = Provide[Injecto.todo_service]):
+    todo_data = request.get_json() #returns dict
+    output = todo_service.post_todo(todo_data)
+    return output,201
+    #return jsonify(todo_data),201
+
+@blueprint.route('/delete')
+def delete_todos():
+    db.session.query(Todo).delete()
+    db.session.commit()
 
