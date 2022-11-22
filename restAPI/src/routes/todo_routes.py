@@ -17,13 +17,12 @@ def get_todos(todo_service= Provide[Injecto.todo_service]):
 @blueprint.route('/post',methods=['POST'])
 @inject
 def post_todo(todo_service = Provide[Injecto.todo_service]):
-    todo_data = request.get_json() #returns dict
+    todo_data = request.json #returns dict
     output = todo_service.post_todo(todo_data)
     return output,201
-    #return jsonify(todo_data),201
 
 @blueprint.route('/delete')
 def delete_todos():
     db.session.query(Todo).delete()
     db.session.commit()
-
+    return "Delete Success"

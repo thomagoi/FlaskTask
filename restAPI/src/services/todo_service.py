@@ -30,19 +30,12 @@ class TodoService:
         todos = self._todo_repository.get_todos()
         todos_schema = TodoSchema(many=True)
         output = todos_schema.dump(todos)
-        return jsonify({"todos": output})
+        return output
 
     def post_todo(self,new_todo):
-        new_title = new_todo['title']
-        new_description = new_todo.get('description',"")
-        new_completed = new_todo.get('completed', False)
-        new_item = Todo(
-            title=new_title,
-            description=new_description,
-            completed=new_completed,
-        )
-        self._todo_repository.post_todo(new_item)
         todo_schema = TodoSchema()
+        new_item = todo_schema.load(new_todo,session=db.session)
+        self._todo_repository.post_todo(new_item)
         output = todo_schema.dump(new_item)
         return output
 

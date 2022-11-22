@@ -1,11 +1,22 @@
 from schemas.schema import ma
 from models.todo import Todo
-#load (deserialization): takes db entry and creates the json object
-#dump (serialization): transform object into bytes to store and transport them easily
+from marshmallow_sqlalchemy import SQLAlchemySchema,auto_field
 
-class TodoSchema(ma.Schema):
+# class TodoSchema(ma.Schema):
+#     class Meta: #options object for schema 
+#         model = Todo
+
+#         fields = ("id", "title", "description", "completed", "tag") #fields to include in serialized result
+#         #exclude = () #fields to exclude
+
+class TodoSchema(SQLAlchemySchema):
     class Meta: #options object for schema 
-        fields = ("id", "title", "description", "completed", "tag") #fields to include in serialized result
-        #exclude = () #fields to exclude
         model = Todo
+        load_instance = True
+
+    id = auto_field()
+    title = auto_field()
+    description = auto_field()
+    completed = auto_field()
+
 
