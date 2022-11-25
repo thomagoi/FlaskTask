@@ -32,6 +32,7 @@ class TodoService:
         output = todos_schema.dump(todos)
         return output
 
+    #TODO: add Error-Handling
     def post_todo(self,new_todo):
         todo_schema = TodoSchema()
         new_item = todo_schema.load(new_todo,session=db.session)
@@ -39,4 +40,6 @@ class TodoService:
         output = todo_schema.dump(new_item)
         return output
 
+    #def delete_todo(self,id):
+        
 

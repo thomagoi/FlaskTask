@@ -18,5 +18,6 @@ class TodoSchema(SQLAlchemySchema):
     title = auto_field()
     description = auto_field()
     completed = auto_field()
+    tag = auto_field()
 
 

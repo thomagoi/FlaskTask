@@ -5,10 +5,19 @@ class Todo(db.Model):
     title = db.Column(db.String(100), nullable=False)
     description = db.Column(db.String(250))
     completed = db.Column(db.Boolean, default=False)
-    #tag = db.Column(db.Integer, db.ForeignKey('tag.id'))
+    tag = db.Column(db.Integer, db.ForeignKey('tag.id',ondelete='SET NULL'))
     #TODO: add project foreign key
 
     def __repr__(self):
         return f"#{self.id} Todo: {self.title}"
 
+#has to be in the same file otherwise can't automatically connect
+#TODO: maybe fix later 
+class Tag(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50), nullable=False)
+    todos = db.relationship('Todo', backref='given_tag', lazy=True)
+
+    def __repr__(self):
+        return f"#{self.id} Tag: {self.name}"
     

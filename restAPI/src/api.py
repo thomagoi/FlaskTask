@@ -13,6 +13,27 @@ api = Api(app)
 ma.init_app(app)
 db.init_app(app)
 
+convention = {
+    "ix": 'ix_%(column_0_label)s',
+    "uq": "uq_%(table_name)s_%(column_0_name)s",
+    "ck": "ck_%(table_name)s_%(constraint_name)s",
+    "fk": "fk_%(table_name)s_%(column_0_name)s_%(referred_table_name)s",
+    "pk": "pk_%(table_name)s"
+}
+
+from flask_swagger_ui import get_swaggerui_blueprint
+
+SWAGGER_URL = '/docs'
+API_URL = '/static/swagger.json'
+swaggerui_blueprint = get_swaggerui_blueprint(
+    SWAGGER_URL,
+    API_URL,
+    config={
+        'app_name':"FlaskTask"
+    }
+)
+app.register_blueprint(swaggerui_blueprint, url_prefix=SWAGGER_URL)
+
 """ render_as_batch makes a new copy of table with applied changes to work around the problem of altering
     the table, fix for working with sqlite
 """
