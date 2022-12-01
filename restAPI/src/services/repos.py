@@ -12,3 +12,5 @@ class TodoRepository:
     def update_todo():
         raise NotImplementedError
     
+    def delete_todo():
+        return NotImplementedError

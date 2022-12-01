@@ -10,7 +10,7 @@ from marshmallow_sqlalchemy import SQLAlchemySchema,auto_field
 #         #exclude = () #fields to exclude
 
 class TodoSchema(SQLAlchemySchema):
-    class Meta: #options object for schema 
+    class Meta: #options object for schema
         model = Todo
         load_instance = True
 

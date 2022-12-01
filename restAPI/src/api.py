@@ -21,18 +21,28 @@ convention = {
     "pk": "pk_%(table_name)s"
 }
 
-from flask_swagger_ui import get_swaggerui_blueprint
+# from flask_swagger_ui import get_swaggerui_blueprint
 
-SWAGGER_URL = '/docs'
-API_URL = '/static/swagger.json'
-swaggerui_blueprint = get_swaggerui_blueprint(
-    SWAGGER_URL,
-    API_URL,
-    config={
-        'app_name':"FlaskTask"
-    }
-)
-app.register_blueprint(swaggerui_blueprint, url_prefix=SWAGGER_URL)
+# SWAGGER_URL = '/docs'
+# API_URL = '/static/swagger.json'
+# swaggerui_blueprint = get_swaggerui_blueprint(
+#     SWAGGER_URL,
+#     API_URL,
+#     config={
+#         'app_name':"FlaskTask"
+#     }
+# )
+# app.register_blueprint(swaggerui_blueprint, url_prefix=SWAGGER_URL)
+
+from flask_swagger import swagger 
+from flask import jsonify
+
+@app.route("/documentation")
+def documentation():
+    swag = swagger(app)
+    swag['info']['version'] = "1.0.0"
+    swag['info']['title'] = "FlaskTask"
+    return jsonify(swag)
 
 """ render_as_batch makes a new copy of table with applied changes to work around the problem of altering
     the table, fix for working with sqlite
