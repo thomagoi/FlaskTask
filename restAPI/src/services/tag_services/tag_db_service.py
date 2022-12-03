@@ -40,7 +40,7 @@ class TagClient(TagRepository):
         return output 
 
     def update_tag(self,id,update_tag):
-        update_target = Tag.query.filter_by(id).first()
+        update_target = Tag.query.filter_by(id=id).first()
         if update_target is not None:
             filter_keys = ["name"]
             filter_dict = {filter_key: update_tag.get(filter_key) for filter_key in filter_keys}

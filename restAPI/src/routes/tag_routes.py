@@ -12,7 +12,7 @@ def post_todo(tag_service=Provide[Injecto.tag_service]):
     return output,201
 
 #read
-@blueprint.route('getAll', methods=['GET'])
+@blueprint.route('/getAll', methods=['GET'])
 @inject 
 def get_tags(tag_service= Provide[Injecto.tag_service]):
     tags = tag_service.get_tags()
@@ -24,6 +24,12 @@ def get_tags(tag_service= Provide[Injecto.tag_service]):
 def get_tag(id,tag_service=Provide[Injecto.tag_service]):
     wanted_tag = tag_service.get_tag(id)
     return wanted_tag
+
+@blueprint.route('/tag/<int:id>/todos',methods=['GET'])
+@inject
+def get_todos_of_tag(id,tag_service=Provide[Injecto.tag_service]):
+    todos = tag_service.get_todos(id)
+    return todos
 
 #update
 @blueprint.route('/tag/<int:id>',methods=['PUT'])
