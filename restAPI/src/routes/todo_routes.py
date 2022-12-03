@@ -12,15 +12,11 @@ blueprint = Blueprint("todo_routes",__name__)
 @inject
 def get_todos(todo_service= Provide[Injecto.todo_service]):
     """
-    Get a List of all todos
+    Get a list of all Todos
     --- 
-    tags:
-      - todo
-    description:
-      Test if this works
-    responses:
+    response:
       200:
-        description: List of Todos
+        description: returns list of Todos
     """
     todos = todo_service.get_todos()
     return todos, 200 
@@ -29,13 +25,27 @@ def get_todos(todo_service= Provide[Injecto.todo_service]):
 @inject
 def get_todo(id,todo_service = Provide[Injecto.todo_service]):
     """
-    Get a Todo based on the given id
+    Get a Todo based on the given ID
     --- 
     parameters:
-      - in: body
-        name: body
+      - in: path
+        name: id
+        required: true
         schema:
           id: Todo
+          properties:
+            title:
+              type: String
+              description: Title of the Todo
+            description:
+              type: String
+              description: short description of the Todo for more information
+            completed:
+              type: boolean
+              description: flag for completion of the Todo, done = True
+            tag:
+              type: integer
+              description: foreign key to a Tag Object
     responses:
       200: 
         description: returns specific Todo
@@ -48,6 +58,17 @@ def get_todo(id,todo_service = Provide[Injecto.todo_service]):
 @blueprint.route('/post',methods=['POST'])
 @inject
 def post_todo(todo_service = Provide[Injecto.todo_service]):
+    """
+    Create a new Todo
+    ---
+    parameters:
+      - in: body
+        name: body
+        schema:
+          id: Todo
+          required:
+            - title
+    """
     output = todo_service.post_todo(request.json)
     return output,201
 
@@ -55,11 +76,12 @@ def post_todo(todo_service = Provide[Injecto.todo_service]):
 @inject
 def delete_todo(id,todo_service = Provide[Injecto.todo_service]):
     """
-    Delete a Todo based on id
+    Delete a Todo based on ID
     --- 
     parameters:
-      - in: body
-        name: body
+      - in: path
+        name: id
+        required: true
         schema:
           id: Todo
     responses:
@@ -74,6 +96,21 @@ def delete_todo(id,todo_service = Provide[Injecto.todo_service]):
 @blueprint.route('/todo/<int:id>', methods=['PUT'])
 @inject
 def update_todo(id,todo_service = Provide[Injecto.todo_service]):
+    """
+    Update an existing Todo specified by ID
+    --- 
+    parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          id: Todo
+    responses:
+      200: 
+        description: returns specific updated Todo
+      400:
+        description: could not find the specified Todo to update
+    """
     update_target = todo_service.update_todo(id,request.json)
     return update_target
 
