@@ -119,6 +119,6 @@ def update_todo(id,todo_service = Provide[Injecto.todo_service]):
 def delete_todos():
     db.session.query(Todo).delete()
     db.session.commit()
-    return "Delete Success"
+    return "Delete Todos Success"
 
 
