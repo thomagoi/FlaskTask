@@ -8,6 +8,8 @@ from schemas.todo import TodoSchema
 class TodoClient(TodoRepository):
     def get_todos(self):
         todos = Todo.query.all()
+        todos_schema = TodoSchema(many=True)
+        todos = todos_schema.dump(todos)
         return todos 
 
     def get_todo(self,id):

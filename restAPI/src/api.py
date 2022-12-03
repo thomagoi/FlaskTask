@@ -50,11 +50,12 @@ def documentation():
 migrate = Migrate(app,db,render_as_batch=True)
 
 import routes.todo_routes as todo_routes
+import routes.tag_routes as tag_routes
 
 from container.injector import Injecto
 app.register_blueprint(todo_routes.blueprint, url_prefix="/todos")
-
-api.add_resource(TodoList, "/todos")
+app.register_blueprint(tag_routes.blueprint, url_prefix="/tags")
+#api.add_resource(TodoList, "/todos")
 
 with app.app_context():
     db.create_all()
@@ -62,7 +63,8 @@ with app.app_context():
 if __name__ == "__main__":
     di = Injecto()
     di.wire(modules=[
-        todo_routes
+        todo_routes,
+        tag_routes
     ])
     app.run(debug=True)
 
