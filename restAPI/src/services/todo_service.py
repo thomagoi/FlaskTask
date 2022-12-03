@@ -10,9 +10,7 @@ class TodoService:
  
     def get_todos(self):
         todos = self._todo_repository.get_todos()
-        todos_schema = TodoSchema(many=True)
-        output = todos_schema.dump(todos)
-        return output
+        return todos
 
     def get_todo(self,search_id):
         #search_id = json_data.get('id')
