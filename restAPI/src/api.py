@@ -54,9 +54,9 @@ import routes.tag_routes as tag_routes
 import routes.project_routes as project_routes
 
 from container.injector import Injecto
-app.register_blueprint(todo_routes.blueprint, url_prefix="/todos")
-app.register_blueprint(tag_routes.blueprint, url_prefix="/tags")
-app.register_blueprint(project_routes.blueprint, url_prefix="/projects")
+app.register_blueprint(todo_routes.blueprint, url_prefix="/api/todos")
+app.register_blueprint(tag_routes.blueprint, url_prefix="/api/tags")
+app.register_blueprint(project_routes.blueprint, url_prefix="/api/projects")
 
 with app.app_context():
     db.create_all()
