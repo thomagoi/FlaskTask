@@ -1,5 +1,5 @@
-from services.todo_service import TodoService
-from services.todo_db_service import TodoClient
+from services.todo_services.todo_service import TodoService
+from services.todo_services.todo_db_service import TodoClient
 from services.tag_services.tag_db_service import TagClient
 from services.tag_services.tag_service import TagService 
 from services.project_services.project_db_service import ProjectClient

@@ -2,7 +2,6 @@ from flask import Blueprint,request, jsonify
 from dependency_injector.wiring import inject, Provide
 from models.todo import Todo 
 from models.database import db 
-from models.todo import Tag  
 from container.injector import Injecto
 
 blueprint = Blueprint("todo_routes",__name__)

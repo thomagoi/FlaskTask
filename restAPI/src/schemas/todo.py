@@ -1,4 +1,3 @@
-from schemas.schema import ma
 from models.todo import Todo
 from marshmallow_sqlalchemy import SQLAlchemySchema,auto_field
 

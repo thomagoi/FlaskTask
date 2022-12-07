@@ -1,4 +1,4 @@
-from .repos import TodoRepository
+from .todo_repo import TodoRepository
 from flask import jsonify
 from schemas.todo import TodoSchema
 
