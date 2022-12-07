@@ -4,8 +4,11 @@ from flask_migrate import Migrate
 from flask_swagger import swagger 
 from flask import jsonify
 
+
 import routing 
 import yaml 
+
+
 
 with open("config.yml","r") as ymlfile:
     config = yaml.safe_load(ymlfile)
@@ -28,6 +31,7 @@ def documentation():
     return jsonify(swag)
 
 app.register_blueprint(routing.router,url_prefix="/api")
+
 
 if __name__ == "__main__":
     app.run(debug=True,port=config['app']['port'])
