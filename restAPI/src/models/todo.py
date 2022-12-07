@@ -30,23 +30,3 @@ class Project(db.Model):
     todos_of_project = db.relationship('Todo', backref='associated_project')
 
 #TODO: add habits; repeating tasks
-<<<<<<< HEAD
-=======
-
-import bcrypt
-
-#TODO: add user management
-class User(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(32), unique=True)
-    password_hash = db.Column(db.String(256))
-
-    def hash_password(self,password):
-        password = password.encode('utf-8')
-        hashed_password = bcrypt.hashpw(password, bcrypt.gensalt())
-        self.password_hash = hashed_password
-
-    def verify_password(self,check_password):
-        check_password = check_password.encode('utf-8')
-        return bcrypt.checkpw(check_password, self.password_hash)
->>>>>>> fdd87e5 (changed url to better represent api)
