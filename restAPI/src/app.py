@@ -16,7 +16,7 @@ db.init_app(app)
 from flask_swagger import swagger 
 from flask import jsonify
 
-swag = swagger(app)
+
 
 from flask_swagger_ui import get_swaggerui_blueprint
 swaggerui_blueprint = get_swaggerui_blueprint("/swagger", "/documentation", config={'app_name': "FlaskTask"})
@@ -43,6 +43,7 @@ from container.injector import Injecto
 app.register_blueprint(todo_routes.blueprint, url_prefix="/api/todos")
 app.register_blueprint(tag_routes.blueprint, url_prefix="/api/tags")
 app.register_blueprint(project_routes.blueprint, url_prefix="/api/projects")
+
 
 if __name__ == "__main__":
     di = Injecto()
