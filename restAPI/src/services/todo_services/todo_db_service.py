@@ -1,11 +1,11 @@
-from .todo_repo import TodoRepository
+from .todo_repo import ITodoRepository
 from models.todo import Todo
 from models.database import db 
 from flask import jsonify
 
 from schemas.todo import TodoSchema
 
-class TodoClient(TodoRepository):
+class TodoClient(ITodoRepository):
     def get_todos(self):
         todos = Todo.query.all()
         todos_schema = TodoSchema(many=True)
@@ -56,10 +56,5 @@ class TodoClient(TodoRepository):
         else:
             return jsonify({"Error":"object to update doesn't exist"}),400
 
-class MockClient(TodoRepository):
-    todo_list = [Todo(title="todo1", completed=False), Todo(title="todo2", completed=False)]
-    
-    def get_todos(self):
-        return self.todo_list
 
 

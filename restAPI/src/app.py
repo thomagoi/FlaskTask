@@ -10,37 +10,18 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 
 api = Api(app)
-ma.init_app(app)
 db.init_app(app)
 
-convention = {
-    "ix": 'ix_%(column_0_label)s',
-    "uq": "uq_%(table_name)s_%(column_0_name)s",
-    "ck": "ck_%(table_name)s_%(constraint_name)s",
-    "fk": "fk_%(table_name)s_%(column_0_name)s_%(referred_table_name)s",
-    "pk": "pk_%(table_name)s"
-}
-
-# from flask_swagger_ui import get_swaggerui_blueprint
-
-# SWAGGER_URL = '/docs'
-# API_URL = '/static/swagger.json'
-# swaggerui_blueprint = get_swaggerui_blueprint(
-#     SWAGGER_URL,
-#     API_URL,
-#     config={
-#         'app_name':"FlaskTask"
-#     }
-# )
-# app.register_blueprint(swaggerui_blueprint, url_prefix=SWAGGER_URL)
 
 from flask_swagger import swagger 
 from flask import jsonify
 
-from flask_swagger_ui import get_swaggerui_blueprint
-swaggerui_blueprint = get_swaggerui_blueprint("/swagger", "/documentation", config={'app_name': "FlaskTask"});
+swag = swagger(app)
 
-app.register_blueprint(swaggerui_blueprint);
+from flask_swagger_ui import get_swaggerui_blueprint
+swaggerui_blueprint = get_swaggerui_blueprint("/swagger", "/documentation", config={'app_name': "FlaskTask"})
+
+app.register_blueprint(swaggerui_blueprint)
 
 @app.route("/documentation")
 def documentation():
@@ -57,13 +38,11 @@ migrate = Migrate(app,db,render_as_batch=True)
 import routes.todo_routes as todo_routes
 import routes.tag_routes as tag_routes
 import routes.project_routes as project_routes
-import routes.user_auth_routes as auth_routes
 
 from container.injector import Injecto
 app.register_blueprint(todo_routes.blueprint, url_prefix="/api/todos")
 app.register_blueprint(tag_routes.blueprint, url_prefix="/api/tags")
 app.register_blueprint(project_routes.blueprint, url_prefix="/api/projects")
-app.register_blueprint(auth_routes.blueprint, url_prefix="/api/user")
 
 if __name__ == "__main__":
     di = Injecto()
