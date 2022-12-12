@@ -7,6 +7,9 @@ from services.project_services.project_service import ProjectService
 from dependency_injector import containers, providers
 
 class Injecto(containers.DeclarativeContainer):
+    # auth_client = providers.Factory()
+    # auth_service = providers.Factory( , auth_repository=auth_client)
+
     todo_client = providers.Factory(TodoClient)
     todo_service = providers.Factory(TodoService, todo_repository=todo_client)
 

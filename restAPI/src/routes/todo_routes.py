@@ -25,7 +25,7 @@ def get_todos(todo_service= Provide[Injecto.todo_service]):
 def get_todo(id,todo_service = Provide[Injecto.todo_service]):
     """
     Get a Todo based on the given ID
-    --- 
+    ---
     parameters:
       - in: path
         name: id
@@ -34,10 +34,10 @@ def get_todo(id,todo_service = Provide[Injecto.todo_service]):
           id: Todo
           properties:
             title:
-              type: String
+              type: string
               description: Title of the Todo
             description:
-              type: String
+              type: string
               description: short description of the Todo for more information
             completed:
               type: boolean

@@ -1,4 +1,4 @@
-class TodoRepository:
+class ITodoRepository:
 
     def get_todos():
         raise NotImplementedError

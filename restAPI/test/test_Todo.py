@@ -1,12 +1,12 @@
 import requests
 
-BASE = "http://127.0.0.1:5000/"
+BASE = "http://127.0.0.1:5000/api/"
 
-data = {"title":"TestTodo", "description":"this is the first test", "completed":False}
-data2 = {"title":"TestNoDesc", "completed":False}
+# data = {"title":"TestTodo", "description":"this is the first test", "completed":False}
+# data2 = {"title":"TestNoDesc", "completed":False}
 
 response = requests.get(BASE + "todos/getAll")
-print(response.json(),response.status_code)
+print(response.json())
 
 print("----------------------------")
 print("post a new todo:")
@@ -15,14 +15,11 @@ print("----------------------------")
 new_todo = {"title": "POST-Todo", "description": "This todo was posted with a POST-Request", "completed":True}
 
 response = requests.post(BASE + "todos/post",json=new_todo)
-print(response.json())
+print(response.json(),response.status_code)
 
 print("----------------------------")
 print("try to get specific todo:")
 print("----------------------------")
-
-id_request = {"id":1}
-id_bad_request = {"id": "String"}
 
 response = requests.get(BASE + "todos/todo/1")
 print(response.json(),response.status_code)

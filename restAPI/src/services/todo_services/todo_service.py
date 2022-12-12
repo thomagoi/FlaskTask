@@ -1,11 +1,10 @@
-from .todo_repo import TodoRepository
+from .todo_repo import ITodoRepository
 from flask import jsonify
-from schemas.todo import TodoSchema
 
 class TodoService:
-    _todo_repository: TodoRepository
+    _todo_repository: ITodoRepository
  
-    def __init__(self, todo_repository: TodoRepository):
+    def __init__(self, todo_repository: ITodoRepository):
         self._todo_repository = todo_repository
  
     def get_todos(self):
@@ -13,7 +12,6 @@ class TodoService:
         return todos
 
     def get_todo(self,search_id):
-        #search_id = json_data.get('id')
         if search_id is not None and isinstance(search_id,int):
             wanted_todo = self._todo_repository.get_todo(search_id)
             return wanted_todo
