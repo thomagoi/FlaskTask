@@ -1,11 +1,10 @@
-from .tag_repo import TagRepository
-from flask import jsonify
+from .tag_repo import ITagRepository 
 from models.todo import Tag
 from models.database import db
 from schemas.tag import TagSchema
 from schemas.todo import TodoSchema
 
-class TagClient(TagRepository):
+class TagClient(ITagRepository):
     def get_tags(self):
         tags = Tag.query.all()
         tags_schema = TagSchema(many=True)
@@ -19,7 +18,7 @@ class TagClient(TagRepository):
             wanted_tag = tag_schema.dump(wanted_tag)
             return wanted_tag
         else:
-            return jsonify({"Error":"could not find the specified id"}), 400
+            return 404
     
     def get_todos_of_tag(self,id):
         tag = Tag.query.filter_by(id=id).first()
@@ -29,7 +28,7 @@ class TagClient(TagRepository):
             todos = todos_schema.dump(todos)
             return todos
         else:
-            return jsonify({"Error":"could not find the specified id"}),400
+            return 404
     
     def post_tag(self, new_tag):
         tag_schema = TagSchema()
@@ -51,8 +50,7 @@ class TagClient(TagRepository):
             output = tag_schema.dump(update_target)
             return output 
         else:
-            return jsonify({"Error":"object to update doesn't exist"}),400
-
+            return 404
 
     def delete_tag(self,id):
         delete_target = Tag.query.filter_by(id=id).first()
@@ -63,4 +61,4 @@ class TagClient(TagRepository):
             delete_target = tag_schema.dump(delete_target)
             return delete_target
         else:
-            return jsonify({"Error":"object to delete doesn't exist"}), 400
+            return 404

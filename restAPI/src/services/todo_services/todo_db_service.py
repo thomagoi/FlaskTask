@@ -1,8 +1,6 @@
 from .todo_repo import ITodoRepository
 from models.todo import Todo
 from models.database import db 
-from flask import jsonify
-
 from schemas.todo import TodoSchema
 
 class TodoClient(ITodoRepository):
@@ -19,7 +17,7 @@ class TodoClient(ITodoRepository):
             wanted_todo = todo_schema.dump(wanted_todo)
             return wanted_todo
         else:
-            return jsonify({"Error":"could not find specified id"}),400
+            return 404
 
     def post_todo(self,new_todo):
         todo_schema = TodoSchema()
@@ -38,7 +36,7 @@ class TodoClient(ITodoRepository):
             delete_target = todo_schema.dump(delete_target)
             return delete_target
         else:
-            return jsonify({"Error":"object to delete doesn't exist"}),400
+            return 404
 
     #TODO: implement Error handling like, if tag doesnt exist
     def update_todo(self,id,update_data):
@@ -54,7 +52,7 @@ class TodoClient(ITodoRepository):
             output = todo_schema.dump(update_target)
             return output
         else:
-            return jsonify({"Error":"object to update doesn't exist"}),400
+            return 404
 
 
 

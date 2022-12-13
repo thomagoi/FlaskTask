@@ -1,12 +1,11 @@
-from .project_repo import ProjectRepository
-from flask import jsonify
+from .project_repo import IProjectRepository
 from models.todo import Project 
 from models.database import db 
 from schemas.todo import TodoSchema
 from schemas.project import ProjectSchema
 
 
-class ProjectClient(ProjectRepository):
+class ProjectClient(IProjectRepository):
     def get_projects(self):
         projects = Project.query.all()
         projects_schema = ProjectSchema(many=True)
@@ -20,7 +19,7 @@ class ProjectClient(ProjectRepository):
             output = project_schema.dump(wanted_project)
             return output
         else:
-            return jsonify({"Error":"could not find object with specified id"}),400
+            return 404
 
     def get_todos_of_project(self,id):
         project = Project.query.filter_by(id=id).first()
@@ -30,7 +29,7 @@ class ProjectClient(ProjectRepository):
             todos = todos_schema.dump(todos)
             return todos
         else:
-            return jsonify({"Error":"could not find the specified project to retrieve the Todos"}),400
+            return 404
 
     def post_project(self,new_project):
         project_schema = ProjectSchema()
@@ -53,7 +52,7 @@ class ProjectClient(ProjectRepository):
             output = project_schema.dump(update_target)
             return output
         else:
-            return jsonify({"Error":"object to update doesn't exist"}),400
+            return 404
     
     def delete_project(self,id):
         delete_target = Project.query.filter_by(id=id).first()
@@ -64,4 +63,4 @@ class ProjectClient(ProjectRepository):
             delete_target = project_schema.dump(delete_target)
             return delete_target
         else:
-            return jsonify({"Error":"object to delete doesn't exist"}),400
+            return 404

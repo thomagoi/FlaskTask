@@ -1,9 +1,9 @@
-from .tag_repo import TagRepository
+from .tag_repo import ITagRepository
 
 class TagService:
-    _tag_repository: TagRepository
+    _tag_repository: ITagRepository
 
-    def __init__(self, tag_repository: TagRepository):
+    def __init__(self, tag_repository: ITagRepository):
         self._tag_repository = tag_repository
 
     def get_tags(self):

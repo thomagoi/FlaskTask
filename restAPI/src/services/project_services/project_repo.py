@@ -1,4 +1,4 @@
-class ProjectRepository:
+class IProjectRepository:
     def get_projects():
         raise NotImplementedError
 

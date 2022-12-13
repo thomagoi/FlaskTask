@@ -1,4 +1,4 @@
-class TagRepository:
+class ITagRepository:
     def get_tags():
         raise NotImplementedError
 

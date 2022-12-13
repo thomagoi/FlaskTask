@@ -1,9 +1,9 @@
-from .project_repo import ProjectRepository
+from .project_repo import IProjectRepository
 
 class ProjectService:
-    _project_repository: ProjectRepository 
+    _project_repository: IProjectRepository 
 
-    def __init__(self, project_repository: ProjectRepository):
+    def __init__(self, project_repository: IProjectRepository):
         self._project_repository = project_repository
 
     def get_projects(self):
