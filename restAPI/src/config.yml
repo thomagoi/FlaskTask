@@ -1,0 +1,12 @@
+app:
+    db_uri: 'sqlite:///database.db'
+    host: '0.0.0.0'
+    port: 5000
+
+swagger:
+    app_name: 'FlaskTask'
+    info: 
+        version : '1.0.0'
+        title : 'FlaskTask'
+    
+
