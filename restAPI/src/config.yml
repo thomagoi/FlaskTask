@@ -1,5 +1,6 @@
 app:
     db_uri: 'sqlite:///database.db'
+    secret_key: 'notReallySecret'
     host: '0.0.0.0'
     port: 5000
 

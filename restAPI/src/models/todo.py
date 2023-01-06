@@ -1,4 +1,5 @@
 from models.database import db 
+import bcrypt
 
 class Todo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
